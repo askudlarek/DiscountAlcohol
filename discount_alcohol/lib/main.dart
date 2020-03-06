@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 void main() => runApp(DiscountAlcohol());
 
 class DiscountAlcohol extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,12 +26,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter += 69;
-    });
+  // used by getGridCells to build grid view in homepage
+  Widget getGridCell(String text) {
+    return Container(
+      padding: EdgeInsets.all(4.0),
+      decoration: BoxDecoration(
+          color: Color.fromARGB(40, 0, 0, 0),
+      ),
+      child: Card(
+        child: Center(
+          child: Text(text),
+        ),
+      )
+    );
+  }
+
+  // builds a list of grid cells for the homepage
+  List<Widget> getGridCells(List<String> texts) {
+    List<Widget> widgets = [];
+    for (String s in texts) {
+      widgets.add(getGridCell(s));
+    }
+    return widgets;
   }
 
   @override
@@ -41,25 +57,22 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      backgroundColor: Color.fromARGB(200, 65, 108, 140),
+      body: Container(
+        padding: EdgeInsets.all(12.0),
+        child: GridView.count(
+            crossAxisCount: 2,  // number of columns
+            children: getGridCells(["Beer",
+              "Wine",
+              "Vodka",
+              "Whiskey",
+              "Gin",
+              "Wine Coolers",
+              "Rum",
+              "Tequila"]
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+        )
+      )
     );
   }
 }
