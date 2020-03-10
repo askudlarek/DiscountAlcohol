@@ -11,7 +11,7 @@ class DiscountAlcohol extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'DiscountAlcohol Home Page'),
+      home: MyHomePage(title: 'DiscountAlcohol Hom'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            Text('fds')
           ],
         ),
       ),
