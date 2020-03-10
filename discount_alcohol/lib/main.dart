@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mapPage.dart';
 
 void main() => runApp(DiscountAlcohol());
 
@@ -34,12 +35,23 @@ class _MyHomePageState extends State<MyHomePage> {
       decoration: BoxDecoration(
           color: Color.fromARGB(40, 0, 0, 0),
       ),
-      child: Card(
-        child: Center(
-          child: Text(text),
-        ),
+      child: GestureDetector(
+        onTap: () => loadMapPage(text),
+          child: Card(
+            child: Center(
+              child: Text(text),
+            ),
+          )
       )
     );
+  }
+
+  loadMapPage(String text) {
+    Navigator.push(context, MaterialPageRoute<void>(
+      builder: (BuildContext bc) {
+        return MapPageFrame(text);
+      }
+    ));
   }
 
   // builds a list of grid cells for the homepage
