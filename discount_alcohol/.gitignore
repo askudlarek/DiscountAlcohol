@@ -8,6 +8,9 @@
 .buildlog/
 .history
 .svn/
+AndroidManifest.xml
+AppDelegate.swift
+
 
 # IntelliJ related
 *.iml
