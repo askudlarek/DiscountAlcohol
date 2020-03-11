@@ -8,8 +8,7 @@
 .buildlog/
 .history
 .svn/
-AndroidManifest.xml
-AppDelegate.swift
+local.properties
 
 
 # IntelliJ related

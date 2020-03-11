@@ -25,6 +25,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def googleMapApiKey = properties.getProperty('google.map.key')
+
 android {
     compileSdkVersion 28
 
@@ -44,6 +48,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [googleMapApiKey: "some value"]
     }
 
     buildTypes {
