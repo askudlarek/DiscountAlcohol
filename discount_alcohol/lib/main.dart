@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mapPage.dart';
+import 'nav_drawer.dart';
 
 void main() => runApp(DiscountAlcohol());
 
@@ -11,7 +12,7 @@ class DiscountAlcohol extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'DiscountAlcohol Home Page'),
+      home: MyHomePage(title: 'DiscountAlcohol'),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -69,7 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      backgroundColor: Color.fromARGB(200, 65, 108, 140),
+      backgroundColor: Color.fromARGB(0xFF, 0x4E, 0x09, 0x04),
+      drawer: NavDrawer(),
       body: Container(
         padding: EdgeInsets.all(12.0),
         child: GridView.count(
@@ -83,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
               "Rum",
               "Tequila"]
             ),
-        )
+        ),
       )
     );
   }
