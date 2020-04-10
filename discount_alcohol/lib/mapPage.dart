@@ -15,6 +15,7 @@ class MapPageFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("DiscountAlcohol"),
       ),
@@ -37,11 +38,72 @@ class MapPageState extends State<MapPage> {
 
   GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(39.728786, -121.837580);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+    _addMarker();
   }
+
+  // CHANGE ALL OF THE BELOW WHEN DATABASE IS ESTABLISHED
+  // For marker something we might want to change when database shows up
+  final Set<Marker> _markers = {};
+
+  void _addMarker() {
+    setState(() {
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId("1"),
+        position: LatLng(39.749943, -121.826413),
+        infoWindow: InfoWindow(
+          title: 'Spike\'s Bottle Shop',
+          snippet: 'Average Price: \$5.65',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId("2"),
+        position: LatLng(39.724322, -121.848992),
+        infoWindow: InfoWindow(
+          title: 'Ray\'s Liquor',
+          snippet: 'Average Price: \$6.32',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId("3"),
+        position: LatLng(39.746370, -121.831072),
+        infoWindow: InfoWindow(
+          title: 'Finnegan\'s Jug Liquor',
+          snippet: 'Average Price: \$5.55',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId("4"),
+        position: LatLng(39.730476, -121.858068),
+        infoWindow: InfoWindow(
+          title: 'Star Liquors',
+          snippet: 'Average Price: \$6.13',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+      _markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId("5"),
+        position: LatLng(39.748536, -121.853935),
+        infoWindow: InfoWindow(
+          title: 'Anthony\'s Liquor',
+          snippet: 'Average Price: \$5.21',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+    });
+  }
+  // CHANGE ALL OF THE ABOVE WHEN DATABASE IS ESTABLISHED
 
   MapPageState(this._drinkSearch);
 
@@ -49,6 +111,8 @@ class MapPageState extends State<MapPage> {
   String _drinkSearch;    // form: type of drink to search for (e.g. beer)
   int _searchRadius = 1;  // filter
   int _maxPrice = 10;     // filter
+
+
 
   // helper function for generating dropdown menu
   List<DropdownMenuItem<int>> getDistanceDropdownItems() {
@@ -135,11 +199,11 @@ class MapPageState extends State<MapPage> {
             )
           )
         ),
-          Container(
-            height: 330,
+          Flexible(
               child: Center(
                 child: GoogleMap(
                   onMapCreated: _onMapCreated,
+                  markers: _markers,
                   initialCameraPosition: CameraPosition(
                     target: _center,
                     zoom: 11.0,
