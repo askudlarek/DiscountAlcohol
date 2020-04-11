@@ -15,10 +15,7 @@ class MapPageFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
       // prevents Google Maps from resizing when keyboard is open
-=======
->>>>>>> addMarkers
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("DiscountAlcohol"),
