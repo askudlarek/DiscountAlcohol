@@ -10,7 +10,7 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Center(
-              child: Text("DiscountAlcohol", style: TextStyle(fontSize: 26)),
+              child: Text("Discount Alcohol", style: TextStyle(fontSize: 26)),
             ),
             decoration: BoxDecoration(
               color: Color.fromARGB(0xFF, 0xFF, 0x98, 0x00),
