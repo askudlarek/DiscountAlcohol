@@ -13,7 +13,7 @@ class NavDrawer extends StatelessWidget {
               child: Text("Discount Alcohol", style: TextStyle(fontSize: 26)),
             ),
             decoration: BoxDecoration(
-              color: Color.fromARGB(0xFF, 0xFF, 0x98, 0x00),
+              color: Colors.blue,
             ),
           ),
 
