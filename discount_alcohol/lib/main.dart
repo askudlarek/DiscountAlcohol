@@ -10,7 +10,7 @@ class DiscountAlcohol extends StatelessWidget {
     return MaterialApp(
       title: 'DiscountAlcohol',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'DiscountAlcohol'),
       debugShowCheckedModeBanner: false,
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      backgroundColor: Color.fromARGB(0xFF, 0x4E, 0x09, 0x04),
+      backgroundColor: Colors.white,
       drawer: NavDrawer(),
       body: Container(
         padding: EdgeInsets.all(12.0),
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
               "Vodka",
               "Whiskey",
               "Gin",
-              "Wine Coolers",
+              "Champagne",
               "Rum",
               "Tequila"]
             ),
