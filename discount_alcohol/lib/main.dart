@@ -81,8 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
               "Vodka",
               "Whiskey",
               "Gin",
-              "Champagne",
               "Rum",
+              "Champagne",
               "Tequila"]
             ),
         ),
