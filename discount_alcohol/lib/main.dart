@@ -12,7 +12,7 @@ class DiscountAlcohol extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'DiscountAlcohol'),
+      home: MyHomePage(title: 'Discount Alcohol'),
       debugShowCheckedModeBanner: false,
     );
   }
