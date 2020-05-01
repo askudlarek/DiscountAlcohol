@@ -8,7 +8,7 @@ class AdPageFrame extends StatelessWidget {
         appBar: AppBar(
           title: Text("DiscountAlcohol"),
         ),
-        backgroundColor: Color.fromARGB(0xFF, 0x4E, 0x09, 0x04),
+        backgroundColor: Colors.white,
         drawer: NavDrawer(),
         body: Container(
           padding: EdgeInsets.all(12.0),
