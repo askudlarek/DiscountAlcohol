@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'store.dart';
+import 'dart:math' show cos, sqrt, asin;
 
 // widget to render the page for Google map lookups
 class MapPageFrame extends StatelessWidget {
@@ -43,68 +45,61 @@ class MapPageState extends State<MapPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
-    _addMarker();
+    readData();
+    filterSearch();
   }
 
-  // CHANGE ALL OF THE BELOW WHEN DATABASE IS ESTABLISHED
-  // For marker something we might want to change when database shows up
-  final Set<Marker> _markers = {};
+  // Filter the search based on the users restrictions
+  void filterSearch() {
+    _markers = {};
+    for (var i = 0; i < markerList.length; i++) {
+      var store = markerList[i];
+      if (_maxPrice >= store.findAlcoholPrice(_drinkSearch) &&
+          calculateDistance(_center.latitude, _center.longitude, store.location.latitude, store.location.longitude) <= _searchRadius) {
+        _addMarker(i.toString(), store, _drinkSearch);
+      }
+    }
+  }
 
-  void _addMarker() {
+  // Calculate the distance between two given latlng points in miles
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))/2;
+    var km = 12742 * asin(sqrt(a));
+    return km / 1.609344;
+  }
+
+
+  // CHANGE ALL OF THE BELOW TO ACCOUNT FOR PULLING IN DATA
+  var markerList = new List();
+
+  // This is where we will read the data in from the
+  void readData() {
+    var store = new Store("Testing1", LatLng(39.728780, -121.837585), 4.25, 4.13, 5.42, 7.65, 8.54, 23.54, 10.11, 9.95);
+    var store1 = new Store("Testing2", LatLng(39.738780, -121.837485), 4.25, 4.13, 5.42, 7.65, 8.54, 23.54, 10.11, 9.95);
+    var store2 = new Store("Testing3", LatLng(39.829780, -121.937565), 4.25, 4.13, 5.42, 7.65, 8.54, 10.00, 10.00, 9.95);
+    markerList.add(store);
+    markerList.add(store1);
+    markerList.add(store2);
+  }
+  // CHANGE ALL OF THE ABOVE TO ACCOUNT FOR PULLING IN DATA
+
+  Set<Marker> _markers = {};
+  // Add a marker to the map
+  void _addMarker(String id, Store store, String key) {
     setState(() {
       _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId("1"),
-        position: LatLng(39.749943, -121.826413),
+        markerId: MarkerId(id),
+        position: store.location,
         infoWindow: InfoWindow(
-          title: 'Spike\'s Bottle Shop',
-          snippet: 'Average Price: \$5.65',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId("2"),
-        position: LatLng(39.724322, -121.848992),
-        infoWindow: InfoWindow(
-          title: 'Ray\'s Liquor',
-          snippet: 'Average Price: \$6.32',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId("3"),
-        position: LatLng(39.746370, -121.831072),
-        infoWindow: InfoWindow(
-          title: 'Finnegan\'s Jug Liquor',
-          snippet: 'Average Price: \$5.55',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId("4"),
-        position: LatLng(39.730476, -121.858068),
-        infoWindow: InfoWindow(
-          title: 'Star Liquors',
-          snippet: 'Average Price: \$6.13',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId("5"),
-        position: LatLng(39.748536, -121.853935),
-        infoWindow: InfoWindow(
-          title: 'Anthony\'s Liquor',
-          snippet: 'Average Price: \$5.21',
+          title: store.name,
+          snippet: '\$'+store.findAlcoholPrice(key).toString(),
         ),
         icon: BitmapDescriptor.defaultMarker,
       ));
     });
   }
-  // CHANGE ALL OF THE ABOVE WHEN DATABASE IS ESTABLISHED
 
   MapPageState(this._drinkSearch);
 
@@ -153,6 +148,10 @@ class MapPageState extends State<MapPage> {
                     ),
                   ),
                   initialValue: _drinkSearch,
+                  onChanged: (String newValue) => setState(() {
+                    _drinkSearch = newValue;
+                    filterSearch();
+                  }),
                 ),
                 // this Row here allows the next Widgets to be on the same horizontal line
                 Row(
@@ -169,6 +168,7 @@ class MapPageState extends State<MapPage> {
                         onChanged: (int newValue) {
                           _searchRadius = newValue;
                           setState((){});
+                          filterSearch();
                         }
                       ),
                     ),
@@ -187,8 +187,9 @@ class MapPageState extends State<MapPage> {
                             )
                           ),
                           initialValue: _maxPrice.toString(),
-                          onSaved: (String newValue) => setState(() {
+                          onChanged: (String newValue) => setState(() {
                             _maxPrice = int.parse(newValue);
+                            filterSearch();
                           }),
                           keyboardType: TextInputType.number,
                         )
