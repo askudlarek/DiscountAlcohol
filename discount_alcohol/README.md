@@ -1,4 +1,4 @@
-# discount_alcohol
+# Discount Alcohol
 
 Find the lowest cost near you
 

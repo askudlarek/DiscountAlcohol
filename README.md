@@ -1,4 +1,5 @@
 # Discount Alcohol
+[![Build Status](https://travis-ci.org/ChicoState/DiscountAlcohol.svg?branch=master)](https://travis-ci.org/ChicoState/DiscountAlcohol)
 
 Find the lowest cost near you
 
