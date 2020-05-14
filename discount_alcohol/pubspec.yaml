@@ -28,6 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.7.3
+  pedantic: ^1.4.0
 
 flutter_icons:
   image_path: "icons/Alcohol.png"
