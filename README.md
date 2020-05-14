@@ -1,5 +1,6 @@
 # Discount Alcohol
 [![Build Status](https://travis-ci.org/ChicoState/DiscountAlcohol.svg?branch=master)](https://travis-ci.org/ChicoState/DiscountAlcohol)
+[![Coverage Status](https://coveralls.io/repos/github/askudlarek/DiscountAlcohol/badge.svg?branch=master)](https://coveralls.io/github/askudlarek/DiscountAlcohol?branch=master)
 
 Find the lowest cost near you
 
